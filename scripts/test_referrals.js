@@ -1,6 +1,6 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
-require('dotenv').config({ path: '.env.local' });
+require('dotenv').config({ path: '.env' });
 const { Schema } = mongoose;
 
 // Models
