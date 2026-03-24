@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 // Load env vars from .env.local
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, '../.env.local') });
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 // Import models
 // Note: We need to import them dynamically or assume the script is run with node
@@ -30,106 +30,16 @@ const seedDatabase = async () => {
 
     // Create plans
     const plans = [
-      {
-        name: 'Plan 10',
-        price: 10,
-        dailyProfit: 1,
-        monthlyProfit: 30,
-        currency: 'USDT',
-        referralCommission: 10,
-        description: 'Daily profit $1, Monthly profit $30',
-        features: ['Low entry barrier', 'Instant withdrawal'],
-      },
-      {
-        name: 'Plan 30',
-        price: 30,
-        dailyProfit: 3,
-        monthlyProfit: 90,
-        currency: 'USDT',
-        referralCommission: 10,
-        description: 'Daily profit $3, Monthly profit $90',
-        features: ['Standard returns', '24/7 Support'],
-      },
-      {
-        name: 'Plan 50',
-        price: 50,
-        dailyProfit: 5,
-        monthlyProfit: 150,
-        currency: 'USDT',
-        referralCommission: 10,
-        description: 'Daily profit $5, Monthly profit $150',
-        features: ['Higher limits', 'Priority support'],
-      },
-      {
-        name: 'Plan 100',
-        price: 100,
-        dailyProfit: 10,
-        monthlyProfit: 300,
-        currency: 'USDT',
-        referralCommission: 12,
-        description: 'Daily profit $10, Monthly profit $300',
-        features: ['Advanced earnings', 'Premium access'],
-      },
-      {
-        name: 'Plan 200',
-        price: 200,
-        dailyProfit: 20,
-        monthlyProfit: 600,
-        currency: 'USDT',
-        referralCommission: 12,
-        description: 'Daily profit $20, Monthly profit $600',
-        features: ['Silver Tier', 'Dedicated Manager'],
-      },
-      {
-        name: 'Plan 500',
-        price: 500,
-        dailyProfit: 50,
-        monthlyProfit: 1500,
-        currency: 'USDT',
-        referralCommission: 12,
-        description: 'Daily profit $50, Monthly profit $1500',
-        features: ['Gold Tier', 'Weekly bonuses'],
-      },
-      {
-        name: 'Plan 1000',
-        price: 1000,
-        dailyProfit: 100,
-        monthlyProfit: 3000,
-        currency: 'USDT',
-        referralCommission: 15,
-        description: 'Daily profit $100, Monthly profit $3000',
-        features: ['Platinum Tier', 'Zero fees'],
-      },
-      {
-        name: 'Plan 2000',
-        price: 2000,
-        dailyProfit: 200,
-        monthlyProfit: 6000,
-        currency: 'USDT',
-        referralCommission: 15,
-        description: 'Daily profit $200, Monthly profit $6000',
-        features: ['Diamond Tier', 'Exclusive events'],
-      },
-      {
-        name: 'Plan 5000',
-        price: 5000,
-        dailyProfit: 500,
-        monthlyProfit: 15000,
-        currency: 'USDT',
-        referralCommission: 15,
-        description: 'Daily profit $500, Monthly profit $15000',
-        features: ['Elite Tier', 'Private auditing'],
-      },
-      {
-        name: 'Plan 10000',
-        price: 10000,
-        dailyProfit: 1000,
-        monthlyProfit: 30000,
-        currency: 'USDT',
-        referralCommission: 15,
-        description: 'Daily profit $1000, Monthly profit $30000',
-        features: ['Partner Tier', 'Shareholder access'],
-      },
+      { name: 'Plan 10', price: 10, dailyProfit: 1, monthlyProfit: 30, currency: 'USDT', referralCommission: 10 },
+      { name: 'Plan 30', price: 30, dailyProfit: 3, monthlyProfit: 90, currency: 'USDT', referralCommission: 10 },
+      { name: 'Plan 50', price: 50, dailyProfit: 5, monthlyProfit: 150, currency: 'USDT', referralCommission: 10 },
+      { name: 'Plan 100', price: 100, dailyProfit: 10, monthlyProfit: 300, currency: 'USDT', referralCommission: 12 },
+      { name: 'Plan 200', price: 200, dailyProfit: 20, monthlyProfit: 600, currency: 'USDT', referralCommission: 12 },
+      { name: 'Plan 500', price: 500, dailyProfit: 50, monthlyProfit: 1500, currency: 'USDT', referralCommission: 12 },
+      { name: 'Plan 1000', price: 1000, dailyProfit: 100, monthlyProfit: 3000, currency: 'USDT', referralCommission: 15 },
+      { name: 'Plan 2000', price: 2000, dailyProfit: 200, monthlyProfit: 6000, currency: 'USDT', referralCommission: 15 },
+      { name: 'Plan 5000', price: 5000, dailyProfit: 500, monthlyProfit: 15000, currency: 'USDT', referralCommission: 15 },
+      { name: 'Plan 10000', price: 10000, dailyProfit: 1000, monthlyProfit: 30000, currency: 'USDT', referralCommission: 15 }
     ];
 
     const createdPlans = await Plan.insertMany(plans);
@@ -142,19 +52,23 @@ const seedDatabase = async () => {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(adminPassword, salt);
 
-    const admin = new User({
-        name: 'Admin User',
-        username: 'admin',
-        email: adminEmail,
-        password: hashedPassword,
-        walletAddress: 'admin_wallet_TRC20',
-        referralCode: 'ADMIN01',
-        isActive: true,
-        role: 'admin',
-    });
-
-    await admin.save();
-    console.log('Admin user created successfully.');
+    await User.updateOne(
+        { username: 'admin' },
+        { 
+            $setOnInsert: {
+                name: 'Admin User',
+                email: adminEmail,
+                password: hashedPassword,
+                walletAddress: 'admin_wallet_TRC20',
+                phone: '1234567890',
+                referralCode: 'ADMIN01',
+                isActive: true,
+                role: 'admin',
+            }
+        },
+        { upsert: true }
+    );
+    console.log('Admin user verified/created.');
 
     console.log('Database seeding completed successfully!');
     process.exit(0);

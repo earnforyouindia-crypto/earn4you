@@ -27,10 +27,6 @@ const planSchema = new mongoose.Schema(
       required: true,
       // percentage of payment amount that referrer gets
     },
-    description: {
-      type: String,
-    },
-    features: [String],
     isActive: {
       type: Boolean,
       default: true,

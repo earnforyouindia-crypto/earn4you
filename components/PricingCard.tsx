@@ -7,7 +7,6 @@ interface Plan {
     price: number;
     dailyProfit?: number;
     monthlyProfit?: number;
-    features: string[];
     recommended?: boolean;
     color?: string;
 }
@@ -18,7 +17,7 @@ interface PricingCardProps {
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
-    const { name, price, features, recommended } = plan;
+    const { name, price, recommended } = plan;
 
     return (
         <div
@@ -59,16 +58,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelect }) => {
                 </div>
             </div>
 
-            {/* <div className="flex-1 space-y-4 mb-8">
-                {features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                        <div className={`mt-1 p-0.5 rounded-full ${recommended ? 'bg-cyan-500/20 text-cyan-400' : 'bg-slate-800 text-slate-400'}`}>
-                            <Check className="w-3 h-3" />
-                        </div>
-                        <span className="text-sm text-slate-300">{feature}</span>
-                    </div>
-                ))}
-            </div> */}
+
 
             <button
                 onClick={() => onSelect(plan)}
