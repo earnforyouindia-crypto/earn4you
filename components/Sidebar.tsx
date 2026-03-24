@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                     {/* Logo Area */}
                     <div className="flex items-center justify-center px-4 py-6 mb-2">
                         <img
-                            src="/logo.png"
+                            src="/logo1.png"
                             alt="Earn4You Logo"
                             className="w-full max-w-[220px] h-auto object-contain"
                         />
