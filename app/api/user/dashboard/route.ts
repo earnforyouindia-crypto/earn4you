@@ -2,6 +2,7 @@ import connectDB from '@/lib/db';
 import User from '@/models/User';
 import Plan from '@/models/Plan';
 import { authenticate } from '@/lib/auth';
+import { distributeUserRoi } from '@/lib/roi_engine';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -12,6 +13,9 @@ export async function GET(request: NextRequest) {
         if (!userPayload) {
             return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
         }
+
+        // Lazy ROI Check: Update reward before fetching data
+        await distributeUserRoi(userPayload.id);
 
         const user = await User.findById(userPayload.id)
             .populate({ path: 'plan', model: Plan })
