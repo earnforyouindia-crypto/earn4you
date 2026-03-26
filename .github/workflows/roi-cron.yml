@@ -1,0 +1,16 @@
+name: Daily ROI Distribution
+
+on:
+  schedule:
+    # Runs every 12 hours (Twice a day is enough for "Lazy ROI" backup)
+    - cron: '0 */12 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  distribute-roi:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger ROI Endpoint
+        run: |
+          curl -X GET "${{ secrets.NEXT_PUBLIC_API_URL }}/api/cron/distribute-roi" \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
