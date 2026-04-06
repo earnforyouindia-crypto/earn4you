@@ -130,7 +130,7 @@ const Dashboard = () => {
                 />
 
                 <StatCard
-                    title="Commission Wallet"
+                    title="Available Balance"
                     value={`${(user.commissionBalance || 0).toFixed(2)} USDT`}
                     icon={Wallet}
                     color="emerald"
@@ -142,7 +142,7 @@ const Dashboard = () => {
                     value={`${(user.roiBalance || 0).toFixed(2)} USDT`}
                     icon={TrendingUp}
                     color="orange"
-                    subValue="Daily Returns (Locked)"
+                    subValue="Total ROI Earned (Withdrawable)"
                 />
 
                 <StatCard

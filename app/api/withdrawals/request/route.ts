@@ -36,11 +36,11 @@ export async function POST(request: NextRequest) {
             }, { status: 403 });
         }
 
-        // Check if user has enough balance (Commission Balance only)
+        // Check if user has enough balance (Available Balance only)
         if ((user.commissionBalance || 0) < withdrawalAmount) {
             return NextResponse.json({
-                message: 'Insufficient commission balance',
-                commissionBalance: user.commissionBalance,
+                message: 'Insufficient available balance',
+                availableBalance: user.commissionBalance,
             }, { status: 400 });
         }
 

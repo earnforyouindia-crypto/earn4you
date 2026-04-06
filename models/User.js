@@ -91,11 +91,11 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    commissionBalance: { // Withdrawable
+    commissionBalance: { // Available for withdrawal
       type: Number,
       default: 0,
     },
-    roiBalance: { // Non-withdrawable daily returns
+    roiBalance: { // Total daily returns earned (for display)
       type: Number,
       default: 0,
     },

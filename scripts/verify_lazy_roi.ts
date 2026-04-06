@@ -41,8 +41,8 @@ async function verifyLazyRoi() {
         );
         console.log(`Updated lastRoiDistribution to: ${yesterday.toISOString()}`);
 
-        const initialRoiBalance = user.roiBalance || 0;
-        console.log(`Initial ROI Balance: ${initialRoiBalance}`);
+        const initialBalance = user.commissionBalance || 0;
+        console.log(`Initial Available Balance: ${initialBalance}`);
 
         // 3. Run the ROI Engine directly
         console.log("Running ROI Engine directly...");
@@ -57,14 +57,14 @@ async function verifyLazyRoi() {
                 console.log("FAILURE: Could not re-fetch user from database.");
                 return;
             }
-            const finalRoiBalance = (updatedUser as any).roiBalance || 0;
-            console.log(`Initial ROI Balance: ${initialRoiBalance}`);
-            console.log(`Final ROI Balance: ${finalRoiBalance}`);
+            const finalBalance = (updatedUser as any).commissionBalance || 0;
+            console.log(`Initial Balance: ${initialBalance}`);
+            console.log(`Final Balance: ${finalBalance}`);
             
-            if (finalRoiBalance > initialRoiBalance) {
-                console.log("SUCCESS: Lazy ROI distributed correctly! ✅");
+            if (finalBalance > initialBalance) {
+                console.log("SUCCESS: Lazy ROI distributed to Commission Balance! ✅");
             } else {
-                console.log("FAILURE: ROI balance did not increase in database. ❌");
+                console.log("FAILURE: Commission balance did not increase in database. ❌");
             }
         } else {
             console.log(`ROI Engine returned failure: ${result.message}`);
