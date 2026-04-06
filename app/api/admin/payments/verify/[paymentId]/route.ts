@@ -50,8 +50,14 @@ export async function POST(request: NextRequest, props: { params: Promise<{ paym
 
         const activationTime = new Date();
         user.planStartDate = activationTime;
-        user.lastRoiDistribution = activationTime;
-        user.planDurationDays = plan ? plan.duration : 30; // fallback to 30
+        
+        // Initialize to start of current IST day so reward logic is consistent
+        const istOffsetMs = 5.5 * 60 * 60 * 1000;
+        const istDate = new Date(activationTime.getTime() + istOffsetMs);
+        istDate.setUTCHours(0, 0, 0, 0);
+        user.lastRoiDistribution = new Date(istDate.getTime() - istOffsetMs);
+        
+        user.planDurationDays = plan ? plan.duration : 30; 
         user.earnedFromPlan = 0;
 
         // Update Total Deposit

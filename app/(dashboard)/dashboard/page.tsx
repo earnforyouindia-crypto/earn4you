@@ -121,8 +121,7 @@ const Dashboard = () => {
                                 <div className="space-y-1">
                                     <div>Earn {user.plan.dailyProfit} USDT Daily</div>
                                     <div className="text-xs space-y-0.5 opacity-80 mt-2 border-t border-purple-500/20 pt-2">
-                                        <div><span className="font-semibold text-purple-200">Start:</span> {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(user.planStartDate))}</div>
-                                        <div><span className="font-semibold text-purple-200">Expire:</span> {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(new Date(user.planStartDate).getTime() + (user.planDurationDays || user.plan.duration || 30) * 24 * 60 * 60 * 1000))}</div>
+                                        <div><span className="font-semibold text-purple-200">Active Since:</span> {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(user.planStartDate))}</div>
                                     </div>
                                 </div>
                             )
