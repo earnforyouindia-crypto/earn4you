@@ -36,11 +36,11 @@ export async function POST(request: NextRequest) {
             }, { status: 403 });
         }
 
-        // Check if user has enough balance (Available Balance only)
-        if ((user.commissionBalance || 0) < withdrawalAmount) {
+        // Check if user has enough balance (Wallet Balance)
+        if ((user.availableBalance || 0) < withdrawalAmount) {
             return NextResponse.json({
-                message: 'Insufficient available balance',
-                availableBalance: user.commissionBalance,
+                message: 'Insufficient withdrawable balance',
+                availableBalance: user.availableBalance,
             }, { status: 400 });
         }
 
@@ -48,8 +48,8 @@ export async function POST(request: NextRequest) {
         const fee = (withdrawalAmount * WITHDRAWAL_FEE_PERCENT) / 100;
         const netAmount = withdrawalAmount - fee;
 
-        // Deduct Balance Immediately
-        user.commissionBalance -= withdrawalAmount;
+        // Deduct from Wallet Immediately
+        user.availableBalance -= withdrawalAmount;
         await user.save();
 
         // Create Withdrawal Record

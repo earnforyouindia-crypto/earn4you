@@ -32,10 +32,11 @@ export async function GET(request: NextRequest) {
                 stats: {
                     totalEarnings: user.totalEarnings,
                     totalDeposit: user.totalDeposit || 0,
+                    availableBalance: user.availableBalance || 0,
                     commissionBalance: user.commissionBalance || 0,
                     roiBalance: user.roiBalance || 0,
                     withdrawalThreshold: user.withdrawalThreshold,
-                    isEligibleForWithdrawal: (user.commissionBalance || 0) >= user.withdrawalThreshold,
+                    isEligibleForWithdrawal: (user.availableBalance || 0) >= user.withdrawalThreshold,
                 },
             },
         }, { status: 200 });

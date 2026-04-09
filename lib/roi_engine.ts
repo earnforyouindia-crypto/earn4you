@@ -88,8 +88,8 @@ export async function distributeUserRoi(userId: string): Promise<RoiResult> {
 
         const updateData = {
             $inc: { 
-                commissionBalance: profitToDistribute, 
                 roiBalance: profitToDistribute, 
+                availableBalance: profitToDistribute, 
                 totalEarnings: profitToDistribute, 
                 earnedFromPlan: profitToDistribute 
             },
