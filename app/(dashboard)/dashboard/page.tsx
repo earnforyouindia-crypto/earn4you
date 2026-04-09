@@ -130,19 +130,19 @@ const Dashboard = () => {
                 />
 
                 <StatCard
-                    title="Available Balance"
-                    value={`${(user.commissionBalance || 0).toFixed(2)} USDT`}
+                    title="Withdrawable Balance"
+                    value={`${(user.availableBalance || 0).toFixed(2)} USDT`}
                     icon={Wallet}
                     color="emerald"
-                    subValue="Withdrawable (Min 10 USDT)"
+                    subValue="Total Available to Withdraw (Min 10 USDT)"
                 />
 
                 <StatCard
-                    title="ROI Wallet"
+                    title="Total ROI Earned"
                     value={`${(user.roiBalance || 0).toFixed(2)} USDT`}
                     icon={TrendingUp}
                     color="orange"
-                    subValue="Total ROI Earned (Withdrawable)"
+                    subValue="Total Profits Distributed"
                 />
 
                 <StatCard
@@ -172,11 +172,11 @@ const Dashboard = () => {
 
                 <StatCard
                     title="Total Commission"
-                    value={`${(user.totalCommissionEarned || 0).toFixed(2)} USDT`}
+                    value={`${(user.commissionBalance || 0).toFixed(2)} USDT`}
                     status="Earned"
                     icon={Users}
                     color="pink"
-                    subValue="From Referrals"
+                    subValue="Total Lifetime Referrals"
                 />
             </div>
 

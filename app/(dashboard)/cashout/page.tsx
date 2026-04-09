@@ -22,7 +22,7 @@ const Cashout = () => {
                 ]);
 
                 if (dashboardRes.data.success) {
-                    setBalance(dashboardRes.data.data.user.commissionBalance || 0);
+                    setBalance(dashboardRes.data.data.user.availableBalance || 0);
                     if (dashboardRes.data.data.user.walletAddress) {
                         setFormData(prev => ({ ...prev, walletAddress: dashboardRes.data.data.user.walletAddress }));
                     }
@@ -178,7 +178,7 @@ const Cashout = () => {
                                 Available: {balance !== undefined ? balance.toFixed(2) : '...'}
                             </span>
                         </div>
-                        <p className="text-xs text-slate-500 mt-2">Minimum withdrawal: 10 USDT (Available Balance)</p>
+                        <p className="text-xs text-slate-500 mt-2">Minimum withdrawal: 10 USDT (Withdrawable Balance)</p>
 
                         {/* Fee Calculation Display */}
                         {formData.amount && Number(formData.amount) >= 10 && (

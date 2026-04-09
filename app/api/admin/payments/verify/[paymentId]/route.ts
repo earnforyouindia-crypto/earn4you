@@ -79,6 +79,7 @@ export async function POST(request: NextRequest, props: { params: Promise<{ paym
 
                 referrerL1.totalEarnings += commissionL1;
                 referrerL1.commissionBalance = (referrerL1.commissionBalance || 0) + commissionL1;
+                referrerL1.availableBalance = (referrerL1.availableBalance || 0) + commissionL1;
                 referrerL1.totalCommissionEarned += commissionL1;
                 await referrerL1.save();
 
@@ -104,6 +105,7 @@ export async function POST(request: NextRequest, props: { params: Promise<{ paym
 
                         referrerL2.totalEarnings += commissionL2;
                         referrerL2.commissionBalance = (referrerL2.commissionBalance || 0) + commissionL2;
+                        referrerL2.availableBalance = (referrerL2.availableBalance || 0) + commissionL2;
                         referrerL2.totalCommissionEarned += commissionL2;
                         await referrerL2.save();
 
@@ -124,6 +126,7 @@ export async function POST(request: NextRequest, props: { params: Promise<{ paym
 
                                 referrerL3.totalEarnings += commissionL3;
                                 referrerL3.commissionBalance = (referrerL3.commissionBalance || 0) + commissionL3;
+                                referrerL3.availableBalance = (referrerL3.availableBalance || 0) + commissionL3;
                                 referrerL3.totalCommissionEarned += commissionL3;
                                 await referrerL3.save();
 
